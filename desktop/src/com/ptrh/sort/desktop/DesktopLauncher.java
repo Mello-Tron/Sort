@@ -6,7 +6,10 @@ import com.ptrh.sort.SortGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new SortGame(), config);
+            LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+            config.title = "Sort";
+            config.width = 272;
+            config.height = 408;
+            new LwjglApplication(new SortGame(), config);
 	}
 }
