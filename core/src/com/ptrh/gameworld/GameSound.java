@@ -19,7 +19,7 @@ public class GameSound {
     
     public static void playPing()
     {
-        //glassping.play(0.5f);
+        glassping.play(0.5f);
     }
     
     public static void dispose()

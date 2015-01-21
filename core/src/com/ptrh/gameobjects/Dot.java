@@ -9,6 +9,7 @@ import com.ptrh.helpers.InputHandler;
 import com.ptrh.gameworld.GameSound;
 import com.ptrh.gameworld.GameWorld;
 import static com.ptrh.helpers.AssetLoader.*;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -52,7 +53,20 @@ public class Dot {
     public void update(float delta) {
         if (!isReturning)
             position.add(velocity.cpy().scl(delta));
-        
+        else {
+            float tweenX = (ghostX - position.x) * 0.1f;
+            float tweenY = (ghostY - position.y) * 0.1f;
+            position.x += tweenX;
+            position.y += tweenY;
+            
+            if (abs(ghostX - position.x) < 2 && abs(ghostY - position.y) < 2)
+            {
+                isReturning = false;
+                position.x = ghostX;
+                position.y = ghostY;
+                velocity.y = ghostVelocityY;
+            }
+        }
         if (position.y >= 203 - height && !isDragging)
         {
             velocity.y = 0;
@@ -100,13 +114,11 @@ public class Dot {
                 position.y = -100;
                 setVelocityToZero();
                 isDragging = false;
+                GameSound.playPing();
             }
             else {
                 isDragging = false;
-                position.x = ghostX;
-                position.y = ghostY;
-                velocity.y = ghostVelocityY;
-                //GameSound.playPing();
+                isReturning = true;
             }
         }
     }
