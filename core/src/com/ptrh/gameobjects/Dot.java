@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.ptrh.helpers.InputHandler;
+import com.ptrh.gameworld.GameSound;
 
 /**
  *
@@ -75,6 +76,7 @@ public class Dot {
             isDragging = false;
             position.x = 300;
             position.y = 300;
+            GameSound.playPing();
         }
     }
     

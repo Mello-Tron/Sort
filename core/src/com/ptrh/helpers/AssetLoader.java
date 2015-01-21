@@ -11,10 +11,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class AssetLoader {
     public static Texture dotTexture;
+    public static Texture squareTexture;
     public static TextureRegion dot;
     public static TextureRegion dotB;
     public static TextureRegion dotG;
     public static TextureRegion dotR;
+    public static TextureRegion sqr;
+    public static TextureRegion sqrB;
+    public static TextureRegion sqrG;
+    public static TextureRegion sqrR;
     
     public static void load() {
         dotTexture = new Texture(Gdx.files.internal("data/dots.png"));
@@ -24,6 +29,14 @@ public class AssetLoader {
         dotB = new TextureRegion(dotTexture, 51, 0, 39, 36);
         dotG = new TextureRegion(dotTexture, 101, 0, 39, 36);
         dotR = new TextureRegion(dotTexture, 151, 0, 39, 36);
+        
+        squareTexture = new Texture(Gdx.files.internal("data/squares.png"));
+        squareTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        
+        sqr = new TextureRegion(squareTexture, 0, 0, 71, 72);
+        sqrB = new TextureRegion(squareTexture, 73, 0, 71, 72);
+        sqrG = new TextureRegion(squareTexture, 145, 0, 71, 72);
+        sqrR = new TextureRegion(squareTexture, 216, 0, 71, 72);
     }
 
     public static void dispose() {

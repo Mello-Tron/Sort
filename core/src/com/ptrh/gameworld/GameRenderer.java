@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.ptrh.gameobjects.Dot;
 import com.ptrh.gameobjects.DotCreator;
+import com.ptrh.gameobjects.Square;
 import com.ptrh.helpers.AssetLoader;
 
 /**
@@ -63,6 +64,12 @@ public class GameRenderer {
         // Disable transparency
         // This is good for performance when drawing images that do not require
         // transparency.
+        Square[] mySquares = myWorld.getSquares();
+        for (int i = 0; i < 4; i++)
+        {
+            batcher.draw(mySquares[i].getTextureRegion(), mySquares[i].getX(), mySquares[i].getY(), mySquares[i].getWidth(), mySquares[i].getHeight());
+        }
+        
         batcher.disableBlending();
         //
 
