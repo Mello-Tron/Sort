@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.ptrh.gameobjects.Dot;
+import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.helpers.AssetLoader;
 
 /**
@@ -41,7 +42,7 @@ public class GameRenderer {
     
     public void render(float runTime) {
         // We will move these outside of the loop for performance later.
-        Dot dot = myWorld.getDot();
+        DotCreator myDotCreator = myWorld.getDotCreator();
 
         // Fill the entire screen with black, to prevent potential flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -71,7 +72,12 @@ public class GameRenderer {
         // Draw bird at its coordinates. Retrieve the Animation object from
         // AssetLoader
         // Pass in the runTime variable to get the current frame.
-        batcher.draw(AssetLoader.dot, dot.getX(), dot.getY(), dot.getWidth(), dot.getHeight());
+        for (int i = 0; i < myDotCreator.getDots().size(); i++)
+        {
+            batcher.draw(AssetLoader.dot, myDotCreator.getDots().get(i).getX(), 
+                    myDotCreator.getDots().get(i).getY(), myDotCreator.getDots().get(i).getWidth(), 
+                    myDotCreator.getDots().get(i).getHeight());
+        }
 
         // End SpriteBatch
         batcher.end();

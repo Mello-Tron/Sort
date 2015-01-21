@@ -12,13 +12,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
     public static Texture dotTexture;
     public static TextureRegion dot;
+    public static TextureRegion dotB;
+    public static TextureRegion dotG;
+    public static TextureRegion dotR;
     
     public static void load() {
         dotTexture = new Texture(Gdx.files.internal("data/dots.png"));
         dotTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-        dot = new TextureRegion(dotTexture, 0, 0, 13, 12);
-        dot.flip(false, true);
+        dot = new TextureRegion(dotTexture, 0, 0, 39, 36);
+        dotB = new TextureRegion(dotTexture, 40, 0, 39, 36);
+        dotG = new TextureRegion(dotTexture, 80, 0, 39, 36);
+        dotR = new TextureRegion(dotTexture, 120, 0, 39, 36);
     }
 
     public static void dispose() {

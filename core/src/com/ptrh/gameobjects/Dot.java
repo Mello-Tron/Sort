@@ -18,19 +18,24 @@ public class Dot {
     private boolean isDragging;
     private float screenWRatio;
     private float screenHRatio;
+    private float beginX;
     
-    public Dot(float x, float y, int width, int height, float screenWRatio, float screenHRatio) {
-        this.width = width;
-        this.height = height;
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, 0); //CHANGE Y SPEED HERE!!!
+    public Dot(float beginX, float screenWRatio, float screenHRatio) {
+        this.width = 12;
+        this.height = 12;
+        position = new Vector2(300, 300);
+        velocity = new Vector2(0, 0);
         isDragging = false;
         this.screenWRatio = screenWRatio;
         this.screenHRatio = screenHRatio;
+        this.beginX = beginX;
     }
     
     public void update(float delta) {
         position.add(velocity.cpy().scl(delta));
+        
+        if (position.y > 220)
+            velocity.y = 0;
     }
 
     public void drag(int screenX, int screenY)
@@ -51,12 +56,24 @@ public class Dot {
             if (y >= position.y && y <= position.y + height)
             {
                 isDragging = true;
+                velocity.y = 0;
             }
         }
     }
-
+    
     public void doneDragging() {
-        isDragging = false;
+        if (isDragging == true)
+        {
+            isDragging = false;
+            position.x = 300;
+            position.y = 300;
+        }
+    }
+    
+    public void beginFalling() {
+        position.x = beginX;
+        position.y = -10;
+        velocity.y = 35;
     }
     
     public float getX() {
