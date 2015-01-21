@@ -21,9 +21,9 @@ public class AssetLoader {
         dotTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
         dot = new TextureRegion(dotTexture, 0, 0, 39, 36);
-        dotB = new TextureRegion(dotTexture, 40, 0, 39, 36);
-        dotG = new TextureRegion(dotTexture, 80, 0, 39, 36);
-        dotR = new TextureRegion(dotTexture, 120, 0, 39, 36);
+        dotB = new TextureRegion(dotTexture, 51, 0, 39, 36);
+        dotG = new TextureRegion(dotTexture, 101, 0, 39, 36);
+        dotR = new TextureRegion(dotTexture, 151, 0, 39, 36);
     }
 
     public static void dispose() {

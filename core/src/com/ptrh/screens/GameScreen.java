@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.ptrh.gameworld.GameRenderer;
 import com.ptrh.gameworld.GameWorld;
 import com.ptrh.helpers.InputHandler;
+import com.ptrh.gameworld.GameSound;
 
 /**
  *
@@ -13,6 +14,7 @@ import com.ptrh.helpers.InputHandler;
 public class GameScreen implements Screen {
     private GameWorld world;
     private GameRenderer renderer;
+    private GameSound sound;
     private float runTime;
     
     public GameScreen() {
@@ -29,6 +31,9 @@ public class GameScreen implements Screen {
         renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight);
         
         Gdx.input.setInputProcessor(new InputHandler(world.getDotCreator()));
+        
+        sound = new GameSound();
+        sound.onCreate();
     }
 
     @Override
@@ -65,6 +70,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        //blank
+        sound.dispose();
     }
 }

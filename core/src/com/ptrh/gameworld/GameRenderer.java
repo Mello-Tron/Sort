@@ -74,7 +74,7 @@ public class GameRenderer {
         // Pass in the runTime variable to get the current frame.
         for (int i = 0; i < myDotCreator.getDots().size(); i++)
         {
-            batcher.draw(AssetLoader.dot, myDotCreator.getDots().get(i).getX(), 
+            batcher.draw(myDotCreator.getDots().get(i).getTextureRegion(), myDotCreator.getDots().get(i).getX(), 
                     myDotCreator.getDots().get(i).getY(), myDotCreator.getDots().get(i).getWidth(), 
                     myDotCreator.getDots().get(i).getHeight());
         }

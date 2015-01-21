@@ -1,5 +1,6 @@
 package com.ptrh.gameobjects;
 
+import com.ptrh.helpers.AssetLoader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,8 +14,16 @@ public class DotCreator {
     
     public DotCreator(float screenWRatio, float screenHRatio)
     {
-        for (int i = 0; i < 10; i++)
-            dots.add(new Dot(60, screenWRatio, screenHRatio));
+        dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dot, 40, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dot, 80, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotB, 60, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotB, 40, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotB, 80, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotG, 60, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotG, 40, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotG, 80, screenWRatio, screenHRatio, this));
+        dots.add(new Dot(AssetLoader.dotR, 60, screenWRatio, screenHRatio, this));
     }
     
     /**
@@ -29,6 +38,17 @@ public class DotCreator {
                     dots.get(i).beginFalling();
             dots.get(i).update(delta);
         }
+    }
+    
+    public boolean areAnyDragging()
+    {
+        for (int i = 0; i < dots.size(); i++)
+        {
+            if (dots.get(i).getIsDragging() == true)
+                return true;
+        }
+        
+        return false;
     }
     
     public ArrayList<Dot> getDots()
