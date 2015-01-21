@@ -7,11 +7,10 @@ import com.ptrh.gameobjects.Dot;
  * @author Patrick
  */
 public class GameWorld {
-    
     private Dot dot;
 
-    public GameWorld() {
-        dot = new Dot(136, 0, 20, 20);
+    public GameWorld(float screenWRatio, float screenHRatio) {
+        dot = new Dot(70, 50, 7, 7, screenWRatio, screenHRatio); //Starting position in world
     }
 
     public void update(float delta) {

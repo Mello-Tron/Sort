@@ -21,14 +21,16 @@ public class GameRenderer {
     private SpriteBatch batcher;
     
     private int gameHeight;
+    private int gameWidth;
     
-    public GameRenderer(GameWorld world, int gameHeight)
+    public GameRenderer(GameWorld world, int gameWidth, int gameHeight)
     {
         myWorld = world;
         this.gameHeight = gameHeight;
+        this.gameWidth = gameWidth;
         
         cam = new OrthographicCamera();
-        cam.setToOrtho(true, 272, gameHeight);
+        cam.setToOrtho(true, gameWidth, gameHeight);
         
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(cam.combined);
@@ -50,7 +52,7 @@ public class GameRenderer {
 
         // Draw Background color
         shapeRenderer.setColor(255.0f, 255.0f, 255.0f, 1);
-        shapeRenderer.rect(0, 0, 272, gameHeight);
+        shapeRenderer.rect(0, 0, gameWidth, gameHeight);
 
         // End ShapeRenderer
         shapeRenderer.end();

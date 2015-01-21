@@ -18,7 +18,7 @@ public class InputHandler implements InputProcessor{
     
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        myDot.onClick();
+        myDot.onClick(screenX, screenY);
         return false;
     }
 
@@ -39,11 +39,13 @@ public class InputHandler implements InputProcessor{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        myDot.doneDragging();
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        myDot.drag(screenX, screenY);
         return false;
     }
 
