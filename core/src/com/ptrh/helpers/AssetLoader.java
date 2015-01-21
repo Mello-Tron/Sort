@@ -3,6 +3,7 @@ package com.ptrh.helpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
     public static Texture dotTexture;
     public static Texture squareTexture;
+    
     public static TextureRegion dot;
     public static TextureRegion dotB;
     public static TextureRegion dotG;
@@ -20,6 +22,8 @@ public class AssetLoader {
     public static TextureRegion sqrB;
     public static TextureRegion sqrG;
     public static TextureRegion sqrR;
+    
+    public static BitmapFont font, shadow;
     
     public static void load() {
         dotTexture = new Texture(Gdx.files.internal("data/dots.png"));
@@ -37,9 +41,18 @@ public class AssetLoader {
         sqrB = new TextureRegion(squareTexture, 73, 0, 71, 72);
         sqrG = new TextureRegion(squareTexture, 145, 0, 71, 72);
         sqrR = new TextureRegion(squareTexture, 216, 0, 71, 72);
+        
+        font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        font.setScale(.25f, -.25f);
+        shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        font.setScale(.25f, -.25f);
     }
 
     public static void dispose() {
         dotTexture.dispose();
+        squareTexture.dispose();
+        
+        font.dispose();
+        shadow.dispose();
     }
 }

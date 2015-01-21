@@ -1,5 +1,6 @@
 package com.ptrh.gameobjects;
 
+import com.ptrh.gameworld.GameWorld;
 import com.ptrh.helpers.AssetLoader;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,19 +12,23 @@ import java.util.Random;
 public class DotCreator {
     private ArrayList<Dot> dots = new ArrayList();
     private Random r = new Random();
+    private int score = 0;
+    private GameWorld myGameWorld;
     
-    public DotCreator(float screenWRatio, float screenHRatio)
+    public DotCreator(float screenWRatio, float screenHRatio, GameWorld gameWorld)
     {
-        dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dot, 40, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dot, 80, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotB, 60, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotB, 40, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotB, 80, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotG, 60, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotG, 40, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotG, 80, screenWRatio, screenHRatio, this));
-        dots.add(new Dot(AssetLoader.dotR, 60, screenWRatio, screenHRatio, this));
+        myGameWorld = gameWorld;
+        
+        dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dot, 40, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dot, 80, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotB, 60, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotB, 40, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotB, 80, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotG, 60, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotG, 40, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotG, 80, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotR, 60, screenWRatio, screenHRatio, this, gameWorld));
     }
     
     /**
@@ -33,8 +38,8 @@ public class DotCreator {
     {
         for (int i = 0; i < dots.size(); i++)
         {
-            if (r.nextInt(200) == 0)
-                if (dots.get(i).getY() > 220)
+            if (r.nextInt(800) == 0)
+                if (dots.get(i).getY() < -10)
                     dots.get(i).beginFalling();
             dots.get(i).update(delta);
         }
@@ -54,5 +59,25 @@ public class DotCreator {
     public ArrayList<Dot> getDots()
     {
         return dots;
+    }
+    
+    public int getScore()
+    {
+        return score;
+    }
+    
+    public void addScore(int increment) {
+        score += increment;
+    }
+    
+    public void onRestart() {
+        score = 0;
+        
+        for (int i = 0; i < dots.size(); i++)
+        {
+            dots.get(i).setX(-100);
+            dots.get(i).setY(-100);
+            dots.get(i).setVelocityToZero();
+        }
     }
 }

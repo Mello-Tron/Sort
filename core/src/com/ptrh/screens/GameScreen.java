@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
         world = new GameWorld(screenWRatio, screenHRatio);
         renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight);
         
-        Gdx.input.setInputProcessor(new InputHandler(world.getDotCreator()));
+        Gdx.input.setInputProcessor(new InputHandler(world));
         
         sound = new GameSound();
         sound.onCreate();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Circle;
 import com.ptrh.gameobjects.Dot;
 import com.ptrh.gameobjects.DotCreator;
+import com.ptrh.gameworld.GameWorld;
 
 /**
  *
@@ -11,19 +12,29 @@ import com.ptrh.gameobjects.DotCreator;
  */
 public class InputHandler implements InputProcessor{
     private DotCreator myDotCreator;
+    private GameWorld myWorld;
     
-    public InputHandler(DotCreator dotCreator)
+    public InputHandler(GameWorld gameWorld)
     {
-        myDotCreator = dotCreator;
+        myWorld = gameWorld;
+        myDotCreator = myWorld.getDotCreator();
     }
     
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (myWorld.isReady())
+            myWorld.start();
+        
         for (int i = 0; i < myDotCreator.getDots().size(); i++)
         {
             myDotCreator.getDots().get(i).onClick(screenX, screenY);
         }
-        return false;
+        
+        if (myWorld.isGameOver()) {
+            myWorld.restart();
+        }
+        
+        return true;
     }
 
     @Override

@@ -70,6 +70,11 @@ public class GameRenderer {
             batcher.draw(mySquares[i].getTextureRegion(), mySquares[i].getX(), mySquares[i].getY(), mySquares[i].getWidth(), mySquares[i].getHeight());
         }
         
+        //draw Score
+        String score = myWorld.getDotCreator().getScore() + "";
+        //AssetLoader.shadow.draw(batcher, score, 20, 20);
+        AssetLoader.font.draw(batcher, score, 20, 20);
+        
         batcher.disableBlending();
         //
 

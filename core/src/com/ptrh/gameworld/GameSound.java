@@ -14,12 +14,12 @@ public class GameSound {
     
     public void onCreate()
     {
-        StrawFields.play();
+        //StrawFields.play();
     }
     
     public static void playPing()
     {
-        glassping.play(0.5f);
+        //glassping.play(0.5f);
     }
     
     public static void dispose()
