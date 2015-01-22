@@ -122,11 +122,11 @@ public class Dot {
         {
             //do this before changing position
             if (inSquare()) {
-                world.addScore(1);
+                isDragging = false;
                 position.x = -100;
                 position.y = -100;
                 setVelocityToZero();
-                isDragging = false;
+                world.addScore(1);
                 GameSound.playPop();
                 dotCreator.incrementBeginVelocities();
             }
