@@ -1,8 +1,6 @@
 package com.ptrh.helpers;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Circle;
-import com.ptrh.gameobjects.Dot;
 import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.gameworld.GameWorld;
 

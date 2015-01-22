@@ -1,11 +1,7 @@
 package com.ptrh.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.ptrh.helpers.InputHandler;
 import com.ptrh.gameworld.GameSound;
 import com.ptrh.gameworld.GameWorld;
 import static com.ptrh.helpers.AssetLoader.*;
@@ -18,32 +14,39 @@ import static java.lang.Math.abs;
 public class Dot {
     private Vector2 position;
     private Vector2 velocity;
-    private int width;
-    private int height;
+    
+    private static int width = 12;
+    private static int height = 12;
+    private static int touchRange = 5;
+    
     private boolean isDragging;
     private boolean isReturning;
+    private boolean isSpeedingUp;
+    
     private float screenWRatio;
     private float screenHRatio;
-    private float beginX;
-    private TextureRegion textureRegion;
-    private DotCreator myDotCreator;
-    private GameWorld myGameWorld;
-    private Square[] mySquares;
-    private int touchRange = 5;
+    private float restartX;
     private float ghostX;
     private float ghostY;
     private float ghostVelocityY;
     
-    public Dot(TextureRegion tr, float beginX, float screenWRatio, float screenHRatio, DotCreator myDotCreator, GameWorld gameWorld) {
-        this.width = 12;
-        this.height = 12;
+    private TextureRegion textureRegion;
+    private DotCreator myDotCreator;
+    private GameWorld myGameWorld;
+    private Square[] mySquares;
+    
+    public Dot(TextureRegion tr, float restartX, float screenWRatio, float screenHRatio, DotCreator myDotCreator, GameWorld gameWorld) {
+        this.restartX = restartX;
         position = new Vector2(-100, -100);
         velocity = new Vector2(0, 0);
+        
         isDragging = false;
         isReturning = false;
+        isSpeedingUp = false;
+        
         this.screenWRatio = screenWRatio;
         this.screenHRatio = screenHRatio;
-        this.beginX = beginX;
+        
         textureRegion = tr;
         this.myDotCreator = myDotCreator;
         myGameWorld = gameWorld;
@@ -51,33 +54,42 @@ public class Dot {
     }
     
     public void update(float delta) {
-        if (!isReturning)
-            position.add(velocity.cpy().scl(delta));
-        else {
+        if (isReturning) {
             float tweenX = (ghostX - position.x) * 0.1f;
             float tweenY = (ghostY - position.y) * 0.1f;
             position.x += tweenX;
             position.y += tweenY;
             
-            if (abs(ghostX - position.x) < 2 && abs(ghostY - position.y) < 2)
-            {
+            if (abs(ghostX - position.x) < 1 && abs(ghostY - position.y) < 1) {
                 isReturning = false;
                 position.x = ghostX;
                 position.y = ghostY;
-                velocity.y = ghostVelocityY;
+                isSpeedingUp = true;
             }
+        } 
+        
+        if (isSpeedingUp) {
+            float tweenV = (ghostVelocityY - velocity.y) * 0.1f;
+            velocity.y += tweenV;
+            
+            if (abs(ghostVelocityY - velocity.y) < 1)
+            {
+                velocity.y = ghostVelocityY;
+                isSpeedingUp = false;
+            } 
         }
-        if (position.y >= 203 - height && !isDragging)
-        {
+        
+        if (!isDragging)
+            position.add(velocity.cpy().scl(delta));
+        
+        if (position.y >= 203 - height && !isDragging) {
             velocity.y = 0;
             myGameWorld.setGameOver();
         }
     }
 
-    public void drag(int screenX, int screenY)
-    {
-        if (isDragging)
-        {
+    public void drag(int screenX, int screenY) {
+        if (isDragging) {
             position.x = (screenX * screenWRatio) - (width / 2);
             position.y = (screenY * screenHRatio) - (height / 2);
         }
@@ -87,12 +99,9 @@ public class Dot {
         float x = (screenX * screenWRatio);
         float y = (screenY * screenHRatio);
         
-        if (x >= position.x - touchRange && x <= position.x + width + touchRange)
-        {
-            if (y >= position.y - touchRange && y <= position.y + height + touchRange)
-            {
-                if (!myDotCreator.areAnyDragging())
-                {
+        if (x >= position.x - touchRange && x <= position.x + width + touchRange) {
+            if (y >= position.y - touchRange && y <= position.y + height + touchRange) {
+                if (!myDotCreator.areAnyDragging()) {
                     ghostX = position.x;
                     ghostY = position.y;
                     ghostVelocityY = velocity.y;
@@ -105,7 +114,7 @@ public class Dot {
     }
     
     public void doneDragging() {
-        if (isDragging == true)
+        if (isDragging)
         {
             //do this before changing position
             if (inSquare()) {
@@ -124,13 +133,12 @@ public class Dot {
     }
     
     public void beginFalling() {
-        position.x = beginX;
+        position.x = restartX;
         position.y = -10;
         velocity.y = 40;
     }
     
-    public boolean inSquare()
-    {
+    public boolean inSquare() {
         float x = position.x;
         float y = position.y;
         float leftX;
@@ -138,7 +146,7 @@ public class Dot {
         float topY;
         float bottomY;
         
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) 
         {
             leftX = mySquares[i].getX();
             rightX = mySquares[i].getX() + mySquares[i].getWidth();

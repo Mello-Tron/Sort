@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.ptrh.gameobjects.Dot;
 import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.gameobjects.Square;
 import com.ptrh.helpers.AssetLoader;

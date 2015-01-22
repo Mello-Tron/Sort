@@ -1,7 +1,6 @@
 package com.ptrh.gameworld;
 
 import com.badlogic.gdx.Gdx;
-import com.ptrh.gameobjects.Dot;
 import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.gameobjects.Square;
 import com.ptrh.helpers.AssetLoader;
