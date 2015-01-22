@@ -109,12 +109,17 @@ public class GameRenderer {
             AssetLoader.font.setScale(0.4f,-0.4f);
             AssetLoader.font.draw(batcher, "Game Over", (gameWidth / 2) - 40, (gameHeight / 2) - 40);
             
-            String score = world.getScore() + "";
             AssetLoader.font.setScale(0.2f,-0.2f);
             AssetLoader.font.draw(batcher, "High Score:", (gameWidth / 2) - 30, (gameHeight / 2));
             AssetLoader.font.setScale(0.3f,-0.3f);
             String highscore = String.format("%d", io.getHighScore());
             AssetLoader.font.draw(batcher, highscore, (gameWidth / 2) + 17, (gameHeight / 2) - 3);
+            
+            String score = world.getScore() + "";
+            AssetLoader.font.setScale(0.15f,-0.15f);
+            AssetLoader.font.draw(batcher, "Your Score:", (gameWidth / 2) - 20, (gameHeight / 2) + 20);
+            AssetLoader.font.setScale(0.175f,-0.175f);
+            AssetLoader.font.draw(batcher, score, (gameWidth / 2) + 13, (gameHeight / 2) + 19);
             
             batcher.end();
         }

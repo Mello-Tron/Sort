@@ -9,12 +9,14 @@ import com.badlogic.gdx.audio.Sound;
  * @author Patrick
  */
 public class GameSound {
-    static Music StrawFields = Gdx.audio.newMusic(Gdx.files.internal("data/SFields.mp3"));
+    static Music catnip = Gdx.audio.newMusic(Gdx.files.internal("data/SFields.mp3"));
     static Sound pop = Gdx.audio.newSound(Gdx.files.internal("data/pop.mp3"));
     
     public void onCreate()
     {
-        //StrawFields.play();
+        catnip.setLooping(true);
+        catnip.setVolume(0.08f);
+        catnip.play();
     }
     
     public static void playPop()
@@ -24,7 +26,7 @@ public class GameSound {
     
     public static void dispose()
     {
-        StrawFields.dispose();
+        catnip.dispose();
         pop.dispose();
     }
 }
