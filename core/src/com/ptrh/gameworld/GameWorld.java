@@ -16,6 +16,8 @@ public class GameWorld {
     private GameState currentState;
     private int score = 0;
     private IOHandler io;
+    private float squareTimer;
+    private float timerSetValue;
 
     public enum GameState {
         READY, RUNNING, GAMEOVER
@@ -32,6 +34,9 @@ public class GameWorld {
         dotCreator = new DotCreator(screenWRatio, screenHRatio, this);
         
         this.io = io;
+        
+        squareTimer = 20;
+        timerSetValue = 20;
    }
 
     public void update(float delta) {
@@ -48,6 +53,8 @@ public class GameWorld {
     
     public void updateRunning(float delta) {
         dotCreator.update(delta);
+        squareTimer -= delta;
+        checkSquareTime();
     }
     
     public void updateReady(float delta) {
@@ -105,5 +112,36 @@ public class GameWorld {
     
     public void addScore(int increment) {
         score += increment;
+    }
+    
+    public void checkSquareTime() {
+        int[] id = new int[4];
+        
+        if (squareTimer <= 0) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (squares[i].getX() == 0 && squares[i].getY() == 0)
+                    id[0] = i;
+                if (squares[i].getX() == 110 && squares[i].getY() == 0)
+                    id[1] = i;
+                if (squares[i].getX() == 110 && squares[i].getY() == 178)
+                    id[2] = i;
+                if (squares[i].getX() == 0 && squares[i].getY() == 178)
+                    id[3] = i;
+            }
+            
+            squares[id[0]].setX(110);
+            squares[id[1]].setY(178);
+            squares[id[2]].setX(0);
+            squares[id[3]].setY(0);
+            
+            if (timerSetValue > 8)
+                timerSetValue--;
+            squareTimer = timerSetValue;
+        }
+    }
+    
+    public float getSquareTimer() {
+        return squareTimer;
     }
 }

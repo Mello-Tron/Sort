@@ -25,9 +25,17 @@ public class Square {
         return position.x;
     }
     
+    public void setX(float newX) {
+        position.x = newX;
+    }
+    
     public float getY()
     {
         return position.y;
+    }
+    
+    public void setY(float newY) {
+        position.y = newY;
     }
     
     public int getWidth()

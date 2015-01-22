@@ -44,7 +44,7 @@ public class DotCreator {
      */
     public void update(float delta)
     {
-        timer += 1 * delta;
+        timer += delta;
         
         if (timer > timerCap) {
             ArrayList<Integer> choices = new ArrayList();
@@ -113,6 +113,7 @@ public class DotCreator {
         for (int i = 0; i < dots.size(); i++)
         {
             dots.get(i).increaseBeginVelocity(0.3f);
+            dots.get(i).increaseTouchRange(0.1f);
         }
     }
     

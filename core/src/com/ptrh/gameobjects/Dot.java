@@ -18,7 +18,7 @@ public class Dot {
     
     private static int width = 12;
     private static int height = 12;
-    private static int touchRange = 5;
+    private float touchRange = 5;
     
     private boolean isDragging;
     private boolean isReturning;
@@ -223,6 +223,10 @@ public class Dot {
     
     public void increaseBeginVelocity(float increment) {
         beginVelocity += increment;
+    }
+    
+    public void increaseTouchRange(float increment) {
+        touchRange += increment;
     }
     
     public void setBeginVelocity(float v) {

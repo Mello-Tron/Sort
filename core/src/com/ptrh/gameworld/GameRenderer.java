@@ -28,6 +28,8 @@ public class GameRenderer {
     
     private IOHandler io;
     
+    int timerDisplay;
+    
     public GameRenderer(GameWorld world, int gameWidth, int gameHeight, IOHandler io)
     {
         this.world = world;
@@ -103,6 +105,14 @@ public class GameRenderer {
 //            AssetLoader.font.setScale(0.25f,-0.25f);
 //            String temp = String.format("%f", myDotCreator.getTimerCap());
 //            AssetLoader.font.draw(batcher, temp, 5, 100);
+            
+            //TESTING SQUARETIMER
+            if (world.getSquareTimer() < 6) {
+                AssetLoader.font.setScale(0.8f,-0.8f);
+                timerDisplay = (int) world.getSquareTimer();
+                String temp = String.format("%d", timerDisplay);
+                AssetLoader.font.draw(batcher, temp, (gameWidth / 2) - 10, (gameHeight / 2) - 38);
+            }
             
             // End SpriteBatch
             batcher.end();
