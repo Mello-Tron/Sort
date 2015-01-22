@@ -14,6 +14,7 @@ import static java.lang.Math.abs;
 public class Dot {
     private Vector2 position;
     private Vector2 velocity;
+    private float beginVelocity;
     
     private static int width = 12;
     private static int height = 12;
@@ -41,6 +42,7 @@ public class Dot {
         this.restartX = restartX;
         position = new Vector2(-100, -100);
         velocity = new Vector2(0, 0);
+        beginVelocity = 25;
         
         isDragging = false;
         isReturning = false;
@@ -118,6 +120,7 @@ public class Dot {
                 setVelocityToZero();
                 isDragging = false;
                 GameSound.playPop();
+                beginVelocity += 3;
             }
             else {
                 isDragging = false;
@@ -129,7 +132,7 @@ public class Dot {
     public void beginFalling() {
         position.x = restartX;
         position.y = -10;
-        velocity.y = 70; //40 60
+        velocity.y = beginVelocity; //40 60
     }
     
     public boolean inSquare() {

@@ -99,6 +99,11 @@ public class GameRenderer {
             AssetLoader.font.setScale(0.25f,-0.25f);
             AssetLoader.font.draw(batcher, score, 55, 5);
             
+            //TESTING TIMECAP
+            AssetLoader.font.setScale(0.25f,-0.25f);
+            String temp = String.format("%f", myDotCreator.getTimerCap());
+            AssetLoader.font.draw(batcher, temp, 5, 100);
+            
             // End SpriteBatch
             batcher.end();
         }
