@@ -58,19 +58,27 @@ public class Dot {
     
     public void update(float delta) {
         if (isReturning) {
-            float tweenX = (ghostX - position.x) * 0.1f;
-            //float tweenY = (ghostY - position.y) * 0.1f;
-            position.x += tweenX;
-            //position.y += tweenY;
             
-            float tweenV = (ghostVelocityY - velocity.y) * 0.9f;
-            velocity.y += tweenV;
+            if (dotCreator.isDotInPath(position.y, restartX, 16))
+            {
+                float tweenV = (ghostVelocityY - velocity.y) * 0.2f;
+                velocity.y -= tweenV;
+            }
+            else {
+                float tweenX = (ghostX - position.x) * 0.1f;
+                //float tweenY = (ghostY - position.y) * 0.1f;
+                position.x += tweenX;
+                //position.y += tweenY;
             
-            if (abs(ghostX - position.x) < 0.25f) {
-                isReturning = false;
-                position.x = ghostX;
-                //position.y = ghostY;
-                velocity.y = ghostVelocityY;
+                float tweenV = (ghostVelocityY - velocity.y) * 0.9f;
+                velocity.y += tweenV;
+                
+                if (abs(ghostX - position.x) < 0.25f) {
+                    isReturning = false;
+                    position.x = ghostX;
+                    //position.y = ghostY;
+                    velocity.y = ghostVelocityY;
+                }
             }
         }
         
@@ -120,7 +128,7 @@ public class Dot {
                 setVelocityToZero();
                 isDragging = false;
                 GameSound.playPop();
-                beginVelocity += 3;
+                dotCreator.incrementBeginVelocities();
             }
             else {
                 isDragging = false;
@@ -211,5 +219,22 @@ public class Dot {
     public TextureRegion getTextureRegion()
     {
         return textureRegion;
+    }
+    
+    public void increaseBeginVelocity(float increment) {
+        beginVelocity += increment;
+    }
+    
+    public void setBeginVelocity(float v) {
+        beginVelocity = v;
+    }
+
+    public void resetBooleans() {
+        isDragging = false;
+        isReturning = false;
+    }
+    
+    public float getRestartX() {
+        return restartX;
     }
 }

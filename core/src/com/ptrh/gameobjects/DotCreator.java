@@ -1,6 +1,5 @@
 package com.ptrh.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.ptrh.gameworld.GameWorld;
 import com.ptrh.helpers.AssetLoader;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class DotCreator {
         world = gameWorld;
         
         timer = 0;
-        timerCap = 2.5f;
+        timerCap = 2.1f;
         timerCapChange = 0.05f;
         
         dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this, gameWorld));
@@ -67,7 +66,7 @@ public class DotCreator {
             if (timerCap < 1.2f)
                 timerCapChange = .005f;
             if (timerCap < 0.8f)
-                timerCapChange = .0005f;
+                timerCapChange = .002f;
 
         }
         
@@ -92,17 +91,42 @@ public class DotCreator {
     }
     
     public void onRestart() {
-        
+        timer = 0;
+        timerCap = 2.1f;
+        timerCapChange = 0.05f;
         
         for (int i = 0; i < dots.size(); i++)
         {
             dots.get(i).setX(-100);
             dots.get(i).setY(-100);
             dots.get(i).setVelocityToZero();
+            dots.get(i).setBeginVelocity(25);
+            dots.get(i).resetBooleans();
         }
     }
     
     public float getTimerCap() {
         return timerCap;
+    }
+    
+    public void incrementBeginVelocities() {
+        for (int i = 0; i < dots.size(); i++)
+        {
+            dots.get(i).increaseBeginVelocity(0.3f);
+        }
+    }
+    
+    public boolean isDotInPath(float y, float resX, int range) {
+        int count = 0;
+        
+        for (int i = 0; i < dots.size(); i++)
+        {
+            if (y > dots.get(i).getY() - range && y < dots.get(i).getY() + range)
+            {
+                if (resX == dots.get(i).getRestartX())
+                    count++;
+            }
+        }
+        return count > 1;
     }
 }

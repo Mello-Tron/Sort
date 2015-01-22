@@ -19,6 +19,7 @@ public class GameRenderer {
     private GameWorld world;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
+    DotCreator myDotCreator;
     
     private SpriteBatch batcher;
     
@@ -42,13 +43,12 @@ public class GameRenderer {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
         
+        myDotCreator = world.getDotCreator();
+        
         this.io = io;
     }
     
     public void render(float runTime) {
-        // We will move these outside of the loop for performance later.
-        DotCreator myDotCreator = world.getDotCreator();
-
         // Fill the entire screen with black, to prevent potential flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -100,9 +100,9 @@ public class GameRenderer {
             AssetLoader.font.draw(batcher, score, 55, 5);
             
             //TESTING TIMECAP
-            AssetLoader.font.setScale(0.25f,-0.25f);
-            String temp = String.format("%f", myDotCreator.getTimerCap());
-            AssetLoader.font.draw(batcher, temp, 5, 100);
+//            AssetLoader.font.setScale(0.25f,-0.25f);
+//            String temp = String.format("%f", myDotCreator.getTimerCap());
+//            AssetLoader.font.draw(batcher, temp, 5, 100);
             
             // End SpriteBatch
             batcher.end();
