@@ -12,12 +12,11 @@ import java.util.Random;
 public class DotCreator {
     private ArrayList<Dot> dots = new ArrayList();
     private Random r = new Random();
-    private int score = 0;
-    private GameWorld myGameWorld;
+    private GameWorld world;
     
     public DotCreator(float screenWRatio, float screenHRatio, GameWorld gameWorld)
     {
-        myGameWorld = gameWorld;
+        world = gameWorld;
         
         dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this, gameWorld));
         dots.add(new Dot(AssetLoader.dot, 40, screenWRatio, screenHRatio, this, gameWorld));
@@ -29,6 +28,8 @@ public class DotCreator {
         dots.add(new Dot(AssetLoader.dotG, 40, screenWRatio, screenHRatio, this, gameWorld));
         dots.add(new Dot(AssetLoader.dotG, 80, screenWRatio, screenHRatio, this, gameWorld));
         dots.add(new Dot(AssetLoader.dotR, 60, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotR, 80, screenWRatio, screenHRatio, this, gameWorld));
+        dots.add(new Dot(AssetLoader.dotR, 40, screenWRatio, screenHRatio, this, gameWorld));
     }
     
     /**
@@ -38,7 +39,7 @@ public class DotCreator {
     {
         for (int i = 0; i < dots.size(); i++)
         {
-            if (r.nextInt(800) == 0)
+            if (r.nextInt(400) == 0)
                 if (dots.get(i).getY() < -10)
                     dots.get(i).beginFalling();
             dots.get(i).update(delta);
@@ -61,18 +62,7 @@ public class DotCreator {
         return dots;
     }
     
-    public int getScore()
-    {
-        return score;
-    }
-    
-    public void addScore(int increment) {
-        score += increment;
-    }
-    
     public void onRestart() {
-        score = 0;
-        
         for (int i = 0; i < dots.size(); i++)
         {
             dots.get(i).setX(-100);

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.gameobjects.Square;
 import com.ptrh.helpers.AssetLoader;
+import com.ptrh.helpers.IOHandler;
 
 /**
  *
@@ -13,12 +14,14 @@ public class GameWorld {
     private DotCreator dotCreator;
     private Square[] squares;
     private GameState currentState;
+    private int score = 0;
+    private IOHandler io;
 
     public enum GameState {
         READY, RUNNING, GAMEOVER
     }
     
-    public GameWorld(float screenWRatio, float screenHRatio) {
+    public GameWorld(float screenWRatio, float screenHRatio, IOHandler io) {
         currentState = GameState.READY;
         squares = new Square[4];
         squares[0] = new Square(0, 0, 25, 25, AssetLoader.sqr);
@@ -27,6 +30,8 @@ public class GameWorld {
         squares[3] = new Square(110, 178, 25, 25, AssetLoader.sqrR);
         
         dotCreator = new DotCreator(screenWRatio, screenHRatio, this);
+        
+        this.io = io;
    }
 
     public void update(float delta) {
@@ -34,11 +39,9 @@ public class GameWorld {
         switch (currentState) {
             case READY:
                 updateReady(delta);
-                Gdx.app.log("currentState", "Ready");
                 break;
             case RUNNING:
                 updateRunning(delta);
-                Gdx.app.log("currentState", "Running");
                 break;
         }
     }
@@ -63,6 +66,7 @@ public class GameWorld {
     
     public void setGameOver() {
         currentState = GameState.GAMEOVER;
+        io.writeHighScore(score);
     }
     
     public boolean isReady() {
@@ -77,13 +81,29 @@ public class GameWorld {
         return false;
     }
     
+    public boolean isRunning() {
+        if (currentState == GameState.RUNNING)
+            return true;
+        return false;
+    }
+    
     public void start() {
         currentState = GameState.RUNNING;
     }
     
     public void restart() {
         currentState = GameState.READY;
+        score = 0;
         dotCreator.onRestart();
         currentState = GameState.RUNNING;
+    }
+    
+    public int getScore()
+    {
+        return score;
+    }
+    
+    public void addScore(int increment) {
+        score += increment;
     }
 }

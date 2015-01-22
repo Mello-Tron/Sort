@@ -42,10 +42,10 @@ public class AssetLoader {
         sqrG = new TextureRegion(squareTexture, 145, 0, 71, 72);
         sqrR = new TextureRegion(squareTexture, 216, 0, 71, 72);
         
-        font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        font = new BitmapFont(Gdx.files.internal("data/sortFont.fnt"));
         font.setScale(.25f, -.25f);
         shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
-        font.setScale(.25f, -.25f);
+        shadow.setScale(.25f, -.25f);
     }
 
     public static void dispose() {

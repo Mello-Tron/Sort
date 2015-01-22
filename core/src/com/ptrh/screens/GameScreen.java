@@ -6,6 +6,7 @@ import com.ptrh.gameworld.GameRenderer;
 import com.ptrh.gameworld.GameWorld;
 import com.ptrh.helpers.InputHandler;
 import com.ptrh.gameworld.GameSound;
+import com.ptrh.helpers.IOHandler;
 
 /**
  *
@@ -15,6 +16,7 @@ public class GameScreen implements Screen {
     private GameWorld world;
     private GameRenderer renderer;
     private GameSound sound;
+    private IOHandler io = new IOHandler();
     private float runTime;
     
     public GameScreen() {
@@ -27,8 +29,8 @@ public class GameScreen implements Screen {
         float screenWRatio = (gameWidth / screenWidth);
         float screenHRatio = (gameHeight / screenHeight);
         
-        world = new GameWorld(screenWRatio, screenHRatio);
-        renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight);
+        world = new GameWorld(screenWRatio, screenHRatio, io);
+        renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight, io);
         
         Gdx.input.setInputProcessor(new InputHandler(world));
         

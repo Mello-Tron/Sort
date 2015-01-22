@@ -8,7 +8,7 @@ import static com.ptrh.helpers.AssetLoader.*;
 import static java.lang.Math.abs;
 
 /**
- *
+ * 
  * @author Patrick
  */
 public class Dot {
@@ -21,7 +21,6 @@ public class Dot {
     
     private boolean isDragging;
     private boolean isReturning;
-    private boolean isSpeedingUp;
     
     private float screenWRatio;
     private float screenHRatio;
@@ -31,52 +30,46 @@ public class Dot {
     private float ghostVelocityY;
     
     private TextureRegion textureRegion;
-    private DotCreator myDotCreator;
-    private GameWorld myGameWorld;
-    private Square[] mySquares;
+    private DotCreator dotCreator;
+    private GameWorld world;
+    private Square[] squares;
     
-    public Dot(TextureRegion tr, float restartX, float screenWRatio, float screenHRatio, DotCreator myDotCreator, GameWorld gameWorld) {
+    /**
+     * Dot's starting parameters
+     */
+    public Dot(TextureRegion textureRegion, float restartX, float screenWRatio, float screenHRatio, DotCreator dotCreator, GameWorld gameWorld) {
         this.restartX = restartX;
         position = new Vector2(-100, -100);
         velocity = new Vector2(0, 0);
         
         isDragging = false;
         isReturning = false;
-        isSpeedingUp = false;
         
         this.screenWRatio = screenWRatio;
         this.screenHRatio = screenHRatio;
         
-        textureRegion = tr;
-        this.myDotCreator = myDotCreator;
-        myGameWorld = gameWorld;
-        mySquares = gameWorld.getSquares();
+        this.textureRegion = textureRegion;
+        this.dotCreator = dotCreator;
+        world = gameWorld;
+        squares = gameWorld.getSquares();
     }
     
     public void update(float delta) {
         if (isReturning) {
             float tweenX = (ghostX - position.x) * 0.1f;
-            float tweenY = (ghostY - position.y) * 0.1f;
+            //float tweenY = (ghostY - position.y) * 0.1f;
             position.x += tweenX;
-            position.y += tweenY;
+            //position.y += tweenY;
             
-            if (abs(ghostX - position.x) < 1 && abs(ghostY - position.y) < 1) {
-                isReturning = false;
-                position.x = ghostX;
-                position.y = ghostY;
-                isSpeedingUp = true;
-            }
-        } 
-        
-        if (isSpeedingUp) {
-            float tweenV = (ghostVelocityY - velocity.y) * 0.1f;
+            float tweenV = (ghostVelocityY - velocity.y) * 0.9f;
             velocity.y += tweenV;
             
-            if (abs(ghostVelocityY - velocity.y) < 1)
-            {
+            if (abs(ghostX - position.x) < 0.25f) {
+                isReturning = false;
+                position.x = ghostX;
+                //position.y = ghostY;
                 velocity.y = ghostVelocityY;
-                isSpeedingUp = false;
-            } 
+            }
         }
         
         if (!isDragging)
@@ -84,7 +77,7 @@ public class Dot {
         
         if (position.y >= 203 - height && !isDragging) {
             velocity.y = 0;
-            myGameWorld.setGameOver();
+            world.setGameOver();
         }
     }
 
@@ -101,12 +94,13 @@ public class Dot {
         
         if (x >= position.x - touchRange && x <= position.x + width + touchRange) {
             if (y >= position.y - touchRange && y <= position.y + height + touchRange) {
-                if (!myDotCreator.areAnyDragging()) {
+                if (!dotCreator.areAnyDragging()) {
                     ghostX = position.x;
                     ghostY = position.y;
                     ghostVelocityY = velocity.y;
                     
                     isDragging = true;
+                    isReturning = false;
                     velocity.y = 0;
                 }
             }
@@ -118,12 +112,12 @@ public class Dot {
         {
             //do this before changing position
             if (inSquare()) {
-                myDotCreator.addScore(1);
+                world.addScore(1);
                 position.x = -100;
                 position.y = -100;
                 setVelocityToZero();
                 isDragging = false;
-                GameSound.playPing();
+                GameSound.playPop();
             }
             else {
                 isDragging = false;
@@ -135,7 +129,7 @@ public class Dot {
     public void beginFalling() {
         position.x = restartX;
         position.y = -10;
-        velocity.y = 40;
+        velocity.y = 70; //40 60
     }
     
     public boolean inSquare() {
@@ -148,27 +142,27 @@ public class Dot {
         
         for (int i = 0; i < 4; i++) 
         {
-            leftX = mySquares[i].getX();
-            rightX = mySquares[i].getX() + mySquares[i].getWidth();
-            topY = mySquares[i].getY();
-            bottomY = mySquares[i].getY() + mySquares[i].getHeight();
+            leftX = squares[i].getX();
+            rightX = squares[i].getX() + squares[i].getWidth();
+            topY = squares[i].getY();
+            bottomY = squares[i].getY() + squares[i].getHeight();
             
-            if (textureRegion == dot && mySquares[i].getTextureRegion() == sqr)
+            if (textureRegion == dot && squares[i].getTextureRegion() == sqr)
             {
                 if (x + width >= leftX && x <= rightX && y + height >= topY && y <= bottomY)
                     return true;
             }
-            else if (textureRegion == dotB && mySquares[i].getTextureRegion() == sqrB)
+            else if (textureRegion == dotB && squares[i].getTextureRegion() == sqrB)
             {
                 if (x + width >= leftX && x <= rightX && y + height >= topY && y <= bottomY)
                     return true;
             }
-            else if (textureRegion == dotG && mySquares[i].getTextureRegion() == sqrG)
+            else if (textureRegion == dotG && squares[i].getTextureRegion() == sqrG)
             {
                 if (x + width >= leftX && x <= rightX && y + height >= topY && y <= bottomY)
                     return true;
             }
-            else if (textureRegion == dotR && mySquares[i].getTextureRegion() == sqrR)
+            else if (textureRegion == dotR && squares[i].getTextureRegion() == sqrR)
             {
                 if (x + width >= leftX && x <= rightX && y + height >= topY && y <= bottomY)
                     return true;

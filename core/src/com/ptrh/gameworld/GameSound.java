@@ -10,21 +10,21 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class GameSound {
     static Music StrawFields = Gdx.audio.newMusic(Gdx.files.internal("data/SFields.mp3"));
-    static Sound glassping = Gdx.audio.newSound(Gdx.files.internal("data/glassping.mp3"));
+    static Sound pop = Gdx.audio.newSound(Gdx.files.internal("data/pop.mp3"));
     
     public void onCreate()
     {
         //StrawFields.play();
     }
     
-    public static void playPing()
+    public static void playPop()
     {
-        glassping.play(0.5f);
+        pop.play(0.15f);
     }
     
     public static void dispose()
     {
         StrawFields.dispose();
-        glassping.dispose();
+        pop.dispose();
     }
 }
