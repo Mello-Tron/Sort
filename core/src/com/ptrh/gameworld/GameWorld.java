@@ -17,6 +17,7 @@ public class GameWorld {
     private int score = 0;
     private IOHandler io;
     private float squareTimer;
+    private float gameoverTimer;
     private float timerSetValue;
 
     public enum GameState {
@@ -37,6 +38,7 @@ public class GameWorld {
         
         squareTimer = 20;
         timerSetValue = 20;
+        gameoverTimer = 3;
    }
 
     public void update(float delta) {
@@ -47,6 +49,9 @@ public class GameWorld {
                 break;
             case RUNNING:
                 updateRunning(delta);
+                break;
+            case GAMEOVER:
+                updateGameOver(delta);
                 break;
         }
     }
@@ -59,6 +64,11 @@ public class GameWorld {
     
     public void updateReady(float delta) {
         //nothing
+    }
+    
+    public void updateGameOver(float delta) {
+        if (gameoverTimer > 0)
+            gameoverTimer -= delta;
     }
     
     public DotCreator getDotCreator() {
@@ -102,6 +112,9 @@ public class GameWorld {
         currentState = GameState.READY;
         score = 0;
         dotCreator.onRestart();
+        squareTimer = 20;
+        timerSetValue = 20;
+        gameoverTimer = 3;
         currentState = GameState.RUNNING;
     }
     
@@ -143,5 +156,9 @@ public class GameWorld {
     
     public float getSquareTimer() {
         return squareTimer;
+    }
+    
+    public float getGameOverTimer() {
+        return gameoverTimer;
     }
 }

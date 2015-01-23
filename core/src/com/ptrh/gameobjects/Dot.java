@@ -18,7 +18,7 @@ public class Dot {
     
     private static int width = 12;
     private static int height = 12;
-    private float touchRange = 5;
+    private float touchRange = 3;
     
     private boolean isDragging;
     private boolean isReturning;
@@ -42,7 +42,7 @@ public class Dot {
         this.restartX = restartX;
         position = new Vector2(-100, -100);
         velocity = new Vector2(0, 0);
-        beginVelocity = 25;
+        beginVelocity = 28;
         
         isDragging = false;
         isReturning = false;
@@ -231,6 +231,10 @@ public class Dot {
     
     public void setBeginVelocity(float v) {
         beginVelocity = v;
+    }
+    
+    public float getBeginVelocity() {
+        return beginVelocity;
     }
 
     public void resetBooleans() {

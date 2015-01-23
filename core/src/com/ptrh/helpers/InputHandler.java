@@ -29,7 +29,8 @@ public class InputHandler implements InputProcessor{
         }
         
         if (myWorld.isGameOver()) {
-            myWorld.restart();
+            if (myWorld.getGameOverTimer() <= 0)
+                myWorld.restart();
         }
         
         return true;

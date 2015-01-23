@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Patrick
  */
 public class DotCreator {
-    private ArrayList<Dot> dots = new ArrayList();
+    private ArrayList<Dot> dots = new ArrayList<Dot>();
     private Random r = new Random();
     private GameWorld world;
     private float timer;
@@ -22,7 +22,7 @@ public class DotCreator {
         world = gameWorld;
         
         timer = 0;
-        timerCap = 2.1f;
+        timerCap = 1.3f;
         timerCapChange = 0.05f;
         
         dots.add(new Dot(AssetLoader.dot, 60, screenWRatio, screenHRatio, this, gameWorld));
@@ -47,7 +47,7 @@ public class DotCreator {
         timer += delta;
         
         if (timer > timerCap) {
-            ArrayList<Integer> choices = new ArrayList();
+            ArrayList<Integer> choices = new ArrayList<Integer>();
             
             for (int i = 0; i < dots.size(); i++)
             {
@@ -63,11 +63,16 @@ public class DotCreator {
             
             timer = 0; //reset timer
             timerCap -= timerCapChange; //reduce cap time
-            if (timerCap < 1.2f)
-                timerCapChange = .005f;
-            if (timerCap < 0.8f)
-                timerCapChange = .002f;
-
+            if (timerCap <= 1.2f)
+                timerCapChange = .007f;
+            if (timerCap <= 1.01f)
+                timerCapChange = .006f;
+            if (timerCap <= 0.75f)
+                timerCapChange = .003f;
+            if (timerCap <= 0.71f)
+                timerCapChange = .001f;
+            if (timerCap <= 0.68f)
+                timerCapChange = .0001f;
         }
         
         for (int i = 0; i < dots.size(); i++)
@@ -92,7 +97,7 @@ public class DotCreator {
     
     public void onRestart() {
         timer = 0;
-        timerCap = 2.1f;
+        timerCap = 1.3f;
         timerCapChange = 0.05f;
         
         for (int i = 0; i < dots.size(); i++)
@@ -113,7 +118,7 @@ public class DotCreator {
         for (int i = 0; i < dots.size(); i++)
         {
             dots.get(i).increaseBeginVelocity(0.3f);
-            dots.get(i).increaseTouchRange(0.1f);
+            dots.get(i).increaseTouchRange(0.01f);
         }
     }
     

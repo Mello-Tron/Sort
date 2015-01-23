@@ -103,15 +103,20 @@ public class GameRenderer {
             
             //TESTING TIMECAP
 //            AssetLoader.font.setScale(0.25f,-0.25f);
-//            String temp = String.format("%f", myDotCreator.getTimerCap());
-//            AssetLoader.font.draw(batcher, temp, 5, 100);
+//            String temp1 = String.format("%f", myDotCreator.getTimerCap());
+//            AssetLoader.font.draw(batcher, temp1, 5, 100);
+            
+            //TESTING BeginVelocity
+//            AssetLoader.font.setScale(0.25f,-0.25f);
+//            String temp3 = String.format("%f", myDotCreator.getDots().get(0).getBeginVelocity());
+//            AssetLoader.font.draw(batcher, temp3, 5, 150);
             
             //TESTING SQUARETIMER
             if (world.getSquareTimer() < 6) {
                 AssetLoader.font.setScale(0.8f,-0.8f);
                 timerDisplay = (int) world.getSquareTimer();
-                String temp = String.format("%d", timerDisplay);
-                AssetLoader.font.draw(batcher, temp, (gameWidth / 2) - 10, (gameHeight / 2) - 38);
+                String temp2 = String.format("%d", timerDisplay);
+                AssetLoader.font.draw(batcher, temp2, (gameWidth / 2) - 10, (gameHeight / 2) - 38);
             }
             
             // End SpriteBatch
@@ -136,14 +141,22 @@ public class GameRenderer {
             AssetLoader.font.setScale(0.175f,-0.175f);
             AssetLoader.font.draw(batcher, score, (gameWidth / 2) + 13, (gameHeight / 2) + 19);
             
+            if (world.getGameOverTimer() <= 0) {
+                AssetLoader.font.setScale(0.2f,-0.2f);
+                AssetLoader.font.draw(batcher, "Click to Restart", (gameWidth / 2) - 30, (gameHeight / 2) + 50);
+            }
+            
             batcher.end();
         }
         else if (world.isReady()) {
             batcher.begin();
             batcher.enableBlending();
             
+            AssetLoader.font.setScale(0.2f,-0.2f);
+            AssetLoader.font.draw(batcher, "Sort", (gameWidth / 2) - 12, 10);
+            
             AssetLoader.font.setScale(0.35f,-0.35f);
-            AssetLoader.font.draw(batcher, "Click the screen", (gameWidth / 2) - 50, (gameHeight / 2) - 40);
+            AssetLoader.font.draw(batcher, "Click the screen", (gameWidth / 2) - 52, (gameHeight / 2) - 44);
             AssetLoader.font.draw(batcher, "to begin!", (gameWidth / 2) - 30, (gameHeight / 2) - 15);
             
             batcher.end();
