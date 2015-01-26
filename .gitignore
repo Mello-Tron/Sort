@@ -63,3 +63,5 @@ build/
 ## OS Specific
 .DS_Store
 /.nb-gradle/private/
+/android/google-play-services_lib/gen/
+/google-play-services_lib/gen/
