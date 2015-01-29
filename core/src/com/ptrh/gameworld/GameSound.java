@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 /**
- *
+ * Creates and loads the music and sound effects used in the game. Functions need little commenting.
  * @author Patrick
  */
 public class GameSound {

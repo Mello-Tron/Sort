@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
+ * Contains dots in an ArrayList that it cycles through to create the illusion of
+ * many, many dots. Updates the creation of dots.
  * @author Patrick
  */
 public class DotCreator {
@@ -17,6 +18,12 @@ public class DotCreator {
     private float timerCap;
     private float timerCapChange;
     
+    /**
+     * Set up of preferences.
+     * @param screenWRatio
+     * @param screenHRatio
+     * @param gameWorld 
+     */
     public DotCreator(float screenWRatio, float screenHRatio, GameWorld gameWorld)
     {
         world = gameWorld;
@@ -40,7 +47,7 @@ public class DotCreator {
     }
     
     /**
-     * Update all dots.
+     * Increases speed and creation speed of all dots over time. Adds dots to a timer.
      */
     public void update(float delta)
     {
@@ -79,6 +86,10 @@ public class DotCreator {
             dots.get(i).update(delta);
     }
     
+    /**
+     * Returns true if a dot is already dragging.
+     * @return 
+     */
     public boolean areAnyDragging()
     {
         for (int i = 0; i < dots.size(); i++)
@@ -95,6 +106,9 @@ public class DotCreator {
         return dots;
     }
     
+    /**
+     * Resets all settings when game restarts.
+     */
     public void onRestart() {
         timer = 0;
         timerCap = 1.3f;
@@ -122,6 +136,13 @@ public class DotCreator {
         }
     }
     
+    /**
+     * Checks if a dot will collide with another dot when returning to its lane.
+     * @param y
+     * @param resX
+     * @param range
+     * @return 
+     */
     public boolean isDotInPath(float y, float resX, int range) {
         int count = 0;
         

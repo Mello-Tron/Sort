@@ -5,7 +5,7 @@ import com.ptrh.gameobjects.DotCreator;
 import com.ptrh.gameworld.GameWorld;
 
 /**
- *
+ * Handles computer keyboard and click input.
  * @author Patrick
  */
 public class InputHandler implements InputProcessor{
@@ -18,6 +18,10 @@ public class InputHandler implements InputProcessor{
         myDotCreator = myWorld.getDotCreator();
     }
     
+    /**
+     * If a dot is touched, tell the dot it is touched.
+     * @return 
+     */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (myWorld.isReady())

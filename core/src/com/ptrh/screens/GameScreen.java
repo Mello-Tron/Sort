@@ -9,7 +9,7 @@ import com.ptrh.gameworld.GameSound;
 import com.ptrh.helpers.IOHandler;
 
 /**
- *
+ * Contains EVERYTHING. Represents the game in libGDX.
  * @author Patrick
  */
 public class GameScreen implements Screen {
@@ -38,6 +38,11 @@ public class GameScreen implements Screen {
         sound.onCreate();
     }
 
+    /**
+     * The method that sets the world and renderer in motion. Passes delta which equals
+     * the amount in time in seconds since the last render() call.
+     * @param delta 
+     */
     @Override
     public void render(float delta) {
         runTime += delta;

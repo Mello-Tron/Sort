@@ -8,7 +8,7 @@ import static com.ptrh.helpers.AssetLoader.*;
 import static java.lang.Math.abs;
 
 /**
- * 
+ * Represents a dot on screen that can move, be dragged and cause GAMEOVER.
  * @author Patrick
  */
 public class Dot {
@@ -56,6 +56,10 @@ public class Dot {
         squares = gameWorld.getSquares();
     }
     
+    /**
+     * Updates dot's position. If returning, move dot towards its lane. If neither, move towards bottom of the screen.
+     * @param delta 
+     */
     public void update(float delta) {
         if (isReturning) {
             
@@ -91,6 +95,11 @@ public class Dot {
         }
     }
 
+    /**
+     * If dot is dragging, move dot to cursor.
+     * @param screenX
+     * @param screenY 
+     */
     public void drag(int screenX, int screenY) {
         if (isDragging) {
             position.x = (screenX * screenWRatio) - (width / 2);
@@ -98,6 +107,11 @@ public class Dot {
         }
     }
     
+    /**
+     * If dot is inside click, set isDragging to true.
+     * @param screenX
+     * @param screenY 
+     */
     public void onClick(int screenX, int screenY) {
         float x = (screenX * screenWRatio);
         float y = (screenY * screenHRatio);
@@ -117,6 +131,9 @@ public class Dot {
         }
     }
     
+    /**
+     * Set dot so it is done dragging. If in square, add point.
+     */
     public void doneDragging() {
         if (isDragging)
         {
@@ -137,12 +154,19 @@ public class Dot {
         }
     }
     
+    /**
+     * Sets correct settings for dot to begin falling.
+     */
     public void beginFalling() {
         position.x = restartX;
         position.y = -10;
         velocity.y = beginVelocity; //40 60
     }
     
+    /**
+     * Checks if the dot is in the correctly colored square. Returns true if it is.
+     * @return 
+     */
     public boolean inSquare() {
         float x = position.x;
         float y = position.y;

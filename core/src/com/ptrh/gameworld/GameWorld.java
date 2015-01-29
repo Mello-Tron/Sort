@@ -7,7 +7,8 @@ import com.ptrh.helpers.AssetLoader;
 import com.ptrh.helpers.IOHandler;
 
 /**
- *
+ * Contains main Update method that calls objects' updates. Controls game states.
+ * Also contains the array of squares.
  * @author Patrick
  */
 public class GameWorld {
@@ -41,6 +42,10 @@ public class GameWorld {
         gameoverTimer = 3;
    }
 
+    /**
+     * Depending on the game state, update accordingly.
+     * @param delta 
+     */
     public void update(float delta) {
         
         switch (currentState) {
@@ -108,6 +113,9 @@ public class GameWorld {
         currentState = GameState.RUNNING;
     }
     
+    /**
+     * Reset variables and state at Restart
+     */
     public void restart() {
         currentState = GameState.READY;
         score = 0;
@@ -127,6 +135,9 @@ public class GameWorld {
         score += increment;
     }
     
+    /**
+     * Controls when squares rotate clockwise
+     */
     public void checkSquareTime() {
         int[] id = new int[4];
         

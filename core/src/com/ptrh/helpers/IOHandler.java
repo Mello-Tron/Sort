@@ -5,13 +5,17 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
- *
+ * Handles high score input and output.
  * @author Patrick
  */
 public class IOHandler {
     FileHandle scoreHandle = Gdx.files.internal("data/highscore.txt");
     Preferences prefs = Gdx.app.getPreferences("Sort Preferences");
     
+    /**
+     * Writes high score to preferences and retrieves the high score.
+     * @param score 
+     */
     public void writeHighScore(int score) {
 //        String stringFromFile = scoreHandle.readString();
 //        int scoreFromFile = Integer.parseInt(stringFromFile);

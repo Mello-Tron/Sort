@@ -12,7 +12,7 @@ import com.ptrh.helpers.AssetLoader;
 import com.ptrh.helpers.IOHandler;
 
 /**
- *
+ * Controls rendering of all objects to the screen.
  * @author Patrick
  */
 public class GameRenderer {
@@ -30,6 +30,13 @@ public class GameRenderer {
     
     int timerDisplay;
     
+    /**
+     * Initializes variables.
+     * @param world
+     * @param gameWidth
+     * @param gameHeight
+     * @param io 
+     */
     public GameRenderer(GameWorld world, int gameWidth, int gameHeight, IOHandler io)
     {
         this.world = world;
@@ -50,6 +57,10 @@ public class GameRenderer {
         this.io = io;
     }
     
+    /**
+     * The main rendering method that is called after each world update.
+     * @param runTime 
+     */
     public void render(float runTime) {
         // Fill the entire screen with black, to prevent potential flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);

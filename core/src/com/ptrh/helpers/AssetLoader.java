@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- *
+ * Loads in local assets and gives them variable names.
  * @author Patrick
  */
 public class AssetLoader {

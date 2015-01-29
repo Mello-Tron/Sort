@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- *
+ * The "square" represents one of each colored corners. Does not move.
  * @author Patrick
  */
 public class Square {
